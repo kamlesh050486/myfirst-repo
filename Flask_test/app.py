@@ -12,6 +12,10 @@ def second():
 def third(name):
     print(name)
     return 'we can see o/p in terminal dynamic API name given in URL'
+
+@app.route('/api')
+       def emp():
+        return 'Empjson data added'
 if __name__== '__main__':
     app.run(debug=True)
 

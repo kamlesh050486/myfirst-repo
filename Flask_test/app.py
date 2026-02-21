@@ -1,21 +1,18 @@
-from flask import Flask
-app= Flask(__name__)
-@app.route('/')
-def home():
-    return 'Hello Flask Programmer !!'
+from flask import Flask, jsonify
+import json
+import os
 
-@app.route('/aboutMe')
-def second():
-    return 'Here Kamlesh is Flask Programmer !!'
+app = Flask(__name__)
+DATA_FILE = "emp.json"
+@app.route("/api", methods=["GET"])
+def api():
+    # Check if file exists
+    if not os.path.exists(DATA_FILE):
+        return jsonify({"error": "Data file not found"}), 404
 
-@app.route('/api/<name>')
-def third(name):
-    print(name)
-    return 'we can see o/p in terminal dynamic API name given in URL'
-
-@app.route('/api')
-       def emp():
-        return 'Empjson data added'
-if __name__== '__main__':
+    # Read data from file
+    with open(DATA_FILE, "r") as file:
+        data = json.load(file)
+    return jsonify(data)
+if __name__ == "__main__":
     app.run(debug=True)
-
